@@ -107,7 +107,7 @@ DNAscope(){
 }
 
 
-qc(){
+metrics(){
     # 统计质控指标
     cmd="$SENTIEON_EXEC driver -t $NT -r $REF_FASTA -i ${SAMPLE_NAME}.sorted.bam \
         --algo MeanQualityByCycle $SAMPLEID.mq_metrics.txt \
@@ -115,7 +115,7 @@ qc(){
         --algo GCBias --summary $SAMPLEID.gc_summary.txt $SAMPLEID.gc_metrics.txt \
         --algo AlignmentStat --adapter_seq ''  $SAMPLEID.aln_metrics.txt  \
         --algo InsertSizeMetricAlgo $SAMPLEID.is_metrics.txt"
-    timer qc "$cmd" qc.ok
+    timer metrics "$cmd" metrics.ok
 }
 
 
@@ -124,7 +124,7 @@ qc(){
 [ -e dedup.ok ]||dedup
 [ -e split.ok ]||split
 [ -e dnascope.ok ]||DNAscope
-[ -e qc.ok ]||qc
+[ -e metrics.ok ]||metrics
 
 echo ">>> Pipeline Finished Successfully!"
 echo ">>> 结束时间：$(date "+%Y-%m-%d %H:%M:%S")"
